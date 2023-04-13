@@ -96,9 +96,9 @@ def proccess_rpn():
 
     while len(expression_tokens) != 0:
         token = expression_tokens.pop(0)
-        handle_validity(stack, token)
+        handle_validity(stack, token.lexeme)
 
-        handle_token(stack, token)
+        handle_token(stack, token.lexeme)
 
     final_result = stack.pop()
     print(f'The final result of the RPN expression is: {final_result}')
