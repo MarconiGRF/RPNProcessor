@@ -1,4 +1,6 @@
 import os
+
+from regex import Regex
 from rpntoken import RPNToken
 
 
@@ -6,31 +8,18 @@ class Utils:
     """
     Defines useful methods for the project.
     """
-    OPERATORS = ['+', '-', '*', '/']
-
-    @classmethod
-    def is_operator(cls, token):
-        return token in cls.OPERATORS
-
-    @classmethod
-    def is_num(cls, token):
-        try:
-            int(token)
-            return True
-        except (TypeError, ValueError):
-            return False
 
     @classmethod
     def classify_token(cls, token):
-        if cls.is_num(token):
+        if Regex.is_num(token):
             return RPNToken("NUM", token)
-        elif cls.is_operator(token):
+        elif Regex.is_operator(token):
             return RPNToken("OP", token)
         else:
             raise TypeError('Unexpected character: {token}')
 
     @classmethod
-    def read_expression_from_file(cls):
+    def scan_file(cls):
         expression_tokens = []
 
         with open(os.path.dirname(__file__) + '/input.stk') as text_file:

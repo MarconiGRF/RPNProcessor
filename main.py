@@ -1,4 +1,6 @@
 from collections import deque
+
+from regex import Regex
 from utils import Utils
 
 
@@ -20,7 +22,7 @@ def check_validity(stack: deque, token: str) -> bool:
     :return: A boolean representing the validity of the token on the current stack state is correct.
     """
 
-    if not Utils.is_operator(token):
+    if not Regex.is_operator(token):
         return True
     else:
         if len(stack) < 2:
@@ -77,7 +79,7 @@ def handle_token(stack: deque, token: str):
     :param token:
     :return:
     """
-    if Utils.is_operator(token):
+    if Regex.is_operator(token):
         first_operand = stack.pop()
         second_operand = stack.pop()
 
@@ -92,7 +94,7 @@ def proccess_rpn():
     Asks for user expresion then processes it and, if the expression is valid, shows the result.
     """
     stack = deque()
-    expression_tokens = Utils.read_expression_from_file()
+    expression_tokens = Utils.scan_file()
 
     while len(expression_tokens) != 0:
         token = expression_tokens.pop(0)
